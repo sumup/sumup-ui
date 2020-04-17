@@ -15,7 +15,7 @@
 
 import React, { Children } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { childrenPropType } from '../../util/shared-prop-types';
 import { multiplyUnit } from '../../styles/style-helpers';

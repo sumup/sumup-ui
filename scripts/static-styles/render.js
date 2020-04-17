@@ -15,8 +15,7 @@
 
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { CacheProvider } from '@emotion/core';
-import { ThemeProvider } from 'emotion-theming';
+import { CacheProvider, ThemeProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 
 const cache = createCache();

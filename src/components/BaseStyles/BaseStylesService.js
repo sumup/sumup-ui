@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { textMega } from '../../styles/style-helpers';
 

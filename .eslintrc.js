@@ -6,8 +6,10 @@ module.exports = require('@sumup/foundry/eslint')(
     openSource: true
   },
   {
+    plugins: ['@emotion'],
     rules: {
-      'arrow-parens': 'off'
+      'arrow-parens': 'off',
+      '@emotion/pkg-renaming': 'error'
     },
     parserOptions: {
       project: ['./tsconfig.eslint.json']

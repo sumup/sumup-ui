@@ -15,7 +15,7 @@
 
 import React from 'react';
 import { Preview as StorybookPreview } from '@storybook/addon-docs/blocks';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 
 import { theme as themes } from '../../src';
 

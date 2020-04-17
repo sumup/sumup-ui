@@ -17,7 +17,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Manager, Reference, Popper } from 'react-popper';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import Portal from '../Portal';
 

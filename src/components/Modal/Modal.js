@@ -16,8 +16,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
-import { Global, ClassNames } from '@emotion/core';
-import { withTheme } from 'emotion-theming';
+import { Global, ClassNames, withTheme } from '@emotion/react';
+
 import noScroll from 'no-scroll';
 
 import { transparentize } from 'polished';

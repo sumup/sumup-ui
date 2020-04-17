@@ -15,7 +15,7 @@
 
 import React, { Fragment } from 'react';
 import { select, number } from '@storybook/addon-knobs/react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import docs from './ProgressBar.docs.mdx';
 import ProgressBar from './ProgressBar';

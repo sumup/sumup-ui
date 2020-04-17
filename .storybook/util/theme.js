@@ -1,6 +1,6 @@
 import { create } from '@storybook/theming';
 import { css } from '@emotion/core';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 
 import {
   theme as themes,

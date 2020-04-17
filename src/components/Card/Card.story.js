@@ -15,7 +15,7 @@
 
 import React, { Fragment } from 'react';
 import { action } from '@storybook/addon-actions';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import docs from './Card.docs.mdx';
 import Card, { CardHeader, CardFooter } from '.';

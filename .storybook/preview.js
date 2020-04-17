@@ -2,7 +2,7 @@ import React from 'react';
 import { addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withA11y } from '@storybook/addon-a11y';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { theme as themes, BaseStyles } from '../src';

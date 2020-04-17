@@ -79,6 +79,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@emotion/babel-preset-css-prop": "^11.0.0-next",
     "@emotion/cache": "^11.0.0-next",
+    "@emotion/eslint-plugin": "^11.0.0-next.10",
     "@emotion/is-prop-valid": "^0.9.0-next",
     "@emotion/jest": "^0.3.0",
     "@emotion/react": "^11.0.0-next",
@@ -150,10 +151,10 @@
   },
   "peerDependencies": {
     "@emotion/babel-preset-css-prop": "11.x",
+    "@emotion/cache": "11.x",
     "@emotion/is-prop-valid": "0.9.x",
     "@emotion/react": "11.x",
     "@emotion/styled": "11.x",
-    "@emotion/cache": "11.x",
     "@emotion/stylis": "0.8.x",
     "react": ">=16.8.0 < 17",
     "react-dom": ">=16.8.0 < 17"

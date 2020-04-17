@@ -16,7 +16,7 @@
 import React from 'react';
 import { boolean, select } from '@storybook/addon-knobs/react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import Spinner from './Spinner';
 

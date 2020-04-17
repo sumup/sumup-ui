@@ -16,8 +16,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-import { withTheme } from 'emotion-theming';
+import { css, withTheme } from '@emotion/react';
+
 import TextMaskInput from 'react-text-mask';
 
 import { themePropType } from '../../../../util/shared-prop-types';

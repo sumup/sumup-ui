@@ -16,7 +16,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { ReactComponent as Success } from '../../notification-success.svg';
 import { ReactComponent as Error } from '../../notification-error.svg';

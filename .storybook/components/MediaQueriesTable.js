@@ -14,7 +14,7 @@
  */
 
 import React from 'react';
-import { withTheme, ThemeProvider } from 'emotion-theming';
+import { withTheme, ThemeProvider } from '@emotion/react';
 
 import { theme as themes, Table } from '../../src';
 

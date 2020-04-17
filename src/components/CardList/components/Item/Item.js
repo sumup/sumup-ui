@@ -16,7 +16,7 @@
 import PropTypes from 'prop-types';
 import { flow } from 'lodash/fp';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { setStatic } from 'recompose';
 
 import withKeyboardEvents from '../../../../util/withKeyboardEvents';

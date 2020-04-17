@@ -16,7 +16,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import { svgKilo } from '../../styles/style-helpers';
 import IconButton from '../IconButton';

@@ -16,7 +16,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import Header from './components/Header';
 import Footer from './components/Footer';

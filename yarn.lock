@@ -1226,6 +1226,11 @@
     "@emotion/utils" "0.11.3"
     babel-plugin-emotion "^10.0.27"
 
+"@emotion/eslint-plugin@^11.0.0-next.10":
+  version "11.0.0-next.10"
+  resolved "https://registry.yarnpkg.com/@emotion/eslint-plugin/-/eslint-plugin-11.0.0-next.10.tgz#0cb387c44d0ba9354c564c25bbafcabee2b29d2e"
+  integrity sha512-5jr5Aw3ucv2aUopIJnGnwki30RooBGZzCB3M9vE8lAvFdC+HqJ35DE4Pmy35LI/r0W6sABh0pJNbTsA9bmEG4A==
+
 "@emotion/hash@0.7.4":
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.7.4.tgz#f14932887422c9056b15a8d222a9074a7dfa2831"
@@ -2422,7 +2427,7 @@
     "@storybook/client-logger" "5.3.9"
     core-js "^3.0.1"
     deep-object-diff "^1.1.0"
-    emotion-theming "^10.0.19"
+    @emotion/react "^10.0.19"
     global "^4.3.2"
     memoizerific "^1.11.3"
     polished "^3.3.1"
@@ -2447,7 +2452,7 @@
     copy-to-clipboard "^3.0.8"
     core-js "^3.0.1"
     core-js-pure "^3.0.1"
-    emotion-theming "^10.0.19"
+    @emotion/react "^10.0.19"
     fast-deep-equal "^2.0.1"
     fuse.js "^3.4.6"
     global "^4.3.2"
@@ -6575,9 +6580,9 @@ emojis-list@^2.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
   integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
 
-emotion-theming@^10.0.19:
+@emotion/react@^10.0.19:
   version "10.0.27"
-  resolved "https://registry.yarnpkg.com/emotion-theming/-/emotion-theming-10.0.27.tgz#1887baaec15199862c89b1b984b79806f2b9ab10"
+  resolved "https://registry.yarnpkg.com/@emotion/react/-/@emotion/react-10.0.27.tgz#1887baaec15199862c89b1b984b79806f2b9ab10"
   integrity sha512-MlF1yu/gYh8u+sLUqA0YuA9JX0P4Hb69WlKc/9OLo+WCXuX6sy/KoIa+qJimgmr2dWqnypYKYPX37esjDBbhdw==
   dependencies:
     "@babel/runtime" "^7.5.5"

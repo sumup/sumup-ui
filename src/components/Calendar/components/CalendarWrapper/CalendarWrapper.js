@@ -14,8 +14,7 @@
  */
 
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-import { withTheme } from 'emotion-theming';
+import { css, withTheme } from '@emotion/react';
 
 import {
   textMega,

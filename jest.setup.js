@@ -20,7 +20,7 @@ import { createSerializer } from 'jest-emotion';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { render, fireEvent, wait, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 
 import ComponentsContext, {
   defaultComponents
