@@ -183,6 +183,7 @@ export {
   SidebarContextConsumer
 } from './components/Sidebar';
 export { default as Header } from './components/Header';
+export { default as Timeline } from './components/Timeline';
 
 // Helpers
 export { default as State } from './components/State';
