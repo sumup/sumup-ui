@@ -26,7 +26,6 @@ const Wrapper = styled(Card)`
   padding: 0;
 `;
 
-Wrapper.defaultProps = Card.defaultProps;
 Wrapper.displayName = 'CardList';
 
 /**

@@ -135,14 +135,15 @@ export default {
     getComponentInfo(ButtonGroup, {
       align: [ButtonGroup.LEFT, ButtonGroup.CENTER, ButtonGroup.RIGHT]
     }),
-    {
-      name: 'card',
-      component: Card,
-      props: {
-        shadow: [Card.SINGLE, Card.DOUBLE, Card.TRIPLE],
-        spacing: [Card.MEGA, Card.GIGA]
-      }
-    },
+    // TODO: Make React DocGen work with TypeScript
+    // {
+    //   name: 'card',
+    //   component: Card,
+    //   props: {
+    //     shadow: ['single', 'double', 'triple'],
+    //     spacing: ['mega', 'giga']
+    //   }
+    // },
     getComponentInfo(Checkbox),
     // TODO: Make React DocGen work with TypeScript
     // getComponentInfo(Hamburger),

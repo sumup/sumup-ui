@@ -24,6 +24,8 @@ import Text from '../Text';
 import ButtonGroup from '../ButtonGroup';
 import Button from '../Button';
 
+import { Theme } from '@sumup/design-tokens';
+
 export default {
   title: 'Components/Card',
   component: Card,
@@ -33,7 +35,7 @@ export default {
   }
 };
 
-const cardStyles = theme => css`
+const cardStyles = (theme: Theme) => css`
   width: 500px;
   height: 150px;
   max-width: 90%;
@@ -41,7 +43,7 @@ const cardStyles = theme => css`
   margin-bottom: ${theme.spacings.mega};
 `;
 
-const contentStyles = theme => css`
+const contentStyles = (theme: Theme) => css`
   background: ${theme.colors.n200};
   width: 100%;
   height: 100%;
@@ -61,18 +63,18 @@ export const base = () => <Card css={cardStyles} />;
 
 export const shadows = () => (
   <Fragment>
-    <Card shadow={Card.SINGLE} css={cardStyles} />
-    <Card shadow={Card.DOUBLE} css={cardStyles} />
-    <Card shadow={Card.TRIPLE} css={cardStyles} />
+    <Card shadow='single' css={cardStyles} />
+    <Card shadow='double' css={cardStyles} />
+    <Card shadow='triple' css={cardStyles} />
   </Fragment>
 );
 
 export const spacings = () => (
   <Fragment>
-    <Card spacing={Card.MEGA} css={cardStyles}>
+    <Card spacing='mega' css={cardStyles}>
       <div css={contentStyles} />
     </Card>
-    <Card spacing={Card.GIGA} css={cardStyles}>
+    <Card spacing='giga' css={cardStyles}>
       <div css={contentStyles} />
     </Card>
   </Fragment>
@@ -102,7 +104,7 @@ export const withFooter = () => (
       <Content />
       <CardFooter>
         <ButtonGroup>
-          <Button secondary>Cancel</Button>
+          <Button variant="secondary">Cancel</Button>
           <Button>Confirm</Button>
         </ButtonGroup>
       </CardFooter>
@@ -112,7 +114,7 @@ export const withFooter = () => (
       <Content />
       <CardFooter align="left">
         <ButtonGroup align="left">
-          <Button secondary>Cancel</Button>
+          <Button variant="secondary">Cancel</Button>
           <Button>Confirm</Button>
         </ButtonGroup>
       </CardFooter>

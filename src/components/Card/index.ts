@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import Card from './Card';
+import { Card } from './Card';
 
 export { Header as CardHeader, Footer as CardFooter } from './components';
 
