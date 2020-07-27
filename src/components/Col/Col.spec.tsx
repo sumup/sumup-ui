@@ -15,7 +15,9 @@
 
 import React from 'react';
 
-import Col from '.';
+import { create, renderToHtml, axe } from '../../util/test-utils';
+
+import { Col } from './Col';
 
 describe('Col', () => {
   /**

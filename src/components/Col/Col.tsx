@@ -13,14 +13,60 @@
  * limitations under the License.
  */
 
-import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
+import { HTMLProps } from 'react';
 import { css } from '@emotion/core';
 import isPropValid from '@emotion/is-prop-valid';
 
-import { getSpanStyles, getSkipStyles, getBreakPointStyles } from './utils';
+import styled, { StyleProps } from '../../styles/styled';
 
-const baseStyles = ({ theme, skip, span }) => css`
+import {
+  ResponsiveProp,
+  getSpanStyles,
+  getSkipStyles,
+  getBreakPointStyles,
+} from './ColService';
+
+export interface ColProps extends Omit<HTMLProps<HTMLDivElement>, 'span'> {
+  /**
+   * The amount to skip for a column. If the value is a number/string it will
+   * be applied with no media query. If the value is an object it will apply
+   * each value based on the key breakpoint, IE:
+   * { untilKilo: 6 } will create a style for the untilKilo media query with a
+   * skip of 6 columns. Accepts negative values as well.
+   */
+  skip?: ResponsiveProp;
+  /**
+   * The amount to span for a column. If the value is a number/string it will
+   * be applied with no media query. If the value is an object it will apply
+   * each value based on the key breakpoint, IE:
+   * { untilKilo: 6 } will create a style for the untilKilo media query with a
+   * span of 6 columns.
+   */
+  span?: ResponsiveProp;
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
+
+function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
+const skipStyles = ({ theme, skip }: StyleProps & ColProps) => {
+  if (!skip) {
+    return null;
+  }
+  return isString(skip) || isNumber(skip)
+    ? createSkipStyles(theme.grid.default, theme, skip)
+    : composeBreakpoints(createSkipStyles, theme.grid, theme, skip);
+};
+
+const baseStyles = ({
+  theme,
+  skip = '0',
+  span = '0',
+}: StyleProps & ColProps) => css`
   label: col;
 
   box-sizing: border-box;
@@ -35,41 +81,6 @@ const baseStyles = ({ theme, skip, span }) => css`
  * Content wrapping for the Grid component. Allows sizing based on provided
  * props.
  */
-const Col = styled('div', {
+export const Col = styled('div', {
   shouldForwardProp: (prop) => isPropValid(prop) && prop !== 'span',
-})(baseStyles);
-
-const sizingProp = PropTypes.oneOfType([
-  PropTypes.object,
-  PropTypes.number,
-  PropTypes.string,
-]);
-
-Col.propTypes = {
-  /**
-   * The amount to skip for a column. If the value is a number/string it will
-   * be applied with no media query. If the value is an object it will apply
-   * each value based on the key breakpoint, IE:
-   * { untilKilo: 6 } will create a style for the untilKilo media query with a
-   * skip of 6 columns. Accepts negative values as well.
-   */
-  skip: sizingProp,
-  /**
-   * The amount to span for a column. If the value is a number/string it will
-   * be applied with no media query. If the value is an object it will apply
-   * each value based on the key breakpoint, IE:
-   * { untilKilo: 6 } will create a style for the untilKilo media query with a
-   * span of 6 columns.
-   */
-  span: sizingProp,
-};
-
-Col.defaultProps = {
-  skip: '0',
-  span: '0',
-};
-
-/**
- * @component
- */
-export default Col;
+})<ColProps>(baseStyles, skipStyles);

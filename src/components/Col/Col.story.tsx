@@ -13,6 +13,32 @@
  * limitations under the License.
  */
 
-import Col from './Col';
+import React from 'react';
+import { css } from '@emotion/core';
 
-export default Col;
+import styled from '../../styles/styled';
+
+import { Col } from './Col';
+
+export default {
+  title: 'Layout/Grid/Col',
+  component: Col,
+};
+
+const StyledCol = styled(Col)(
+  ({ theme }) => css`
+    background-color: ${theme.colors.b500};
+    color: ${theme.colors.white};
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    height: 40px;
+    padding: 10px;
+  `,
+);
+
+export const col = () => (
+  <div style={{ width: '100vw' }}>
+    <StyledCol span="12">Column</StyledCol>
+  </div>
+);

@@ -15,31 +15,10 @@
 
 import { head, last } from 'lodash/fp';
 
-import * as utils from './utils';
-import { DEFAULT_BREAKPOINT } from './constants';
+import * as utils from './ColService';
 
 describe('Col utils', () => {
   beforeEach(jest.clearAllMocks);
-
-  describe('isDefault()', () => {
-    it('should return true if the provided breakpoint is the default one', () => {
-      const breakpoint = DEFAULT_BREAKPOINT;
-
-      const expected = true;
-      const actual = utils.isDefault(breakpoint);
-
-      expect(actual).toBe(expected);
-    });
-
-    it('should return false if the provided breakpoint is not the default one', () => {
-      const breakpoint = 'foo';
-
-      const expected = false;
-      const actual = utils.isDefault(breakpoint);
-
-      expect(actual).toBe(expected);
-    });
-  });
 
   describe('sortByPriority()', () => {
     it('should sort the provided key/value tuple array based on the provided grid priority', () => {

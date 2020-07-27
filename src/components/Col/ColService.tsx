@@ -15,41 +15,67 @@
 
 import { css } from '@emotion/core';
 import {
-  isEqual,
-  isString,
   clamp,
   toPairs,
   head,
-  compose,
+  flow,
   curry,
   map,
   mapValues,
   values,
 } from 'lodash/fp';
+import { Theme } from '@sumup/design-tokens';
 
-import { MIN_COL_SPAN, MAX_COL_WIDTH, DEFAULT_BREAKPOINT } from './constants';
+export type Breakpoint = keyof Theme['grid'] | 'default';
+export type ResponsiveProp =
+  | string
+  | number
+  | { [key in Breakpoint]: string | number };
+type Grid = {
+  priority: number;
+  breakpoint: Breakpoint;
+  cols: number;
+  maxWidth: string;
+  gutter: string;
+};
 
-export const isDefault = isEqual(DEFAULT_BREAKPOINT);
+const MIN_COL_SPAN = 1;
+const MAX_COL_WIDTH = 100;
+const DEFAULT_BREAKPOINT = 'default';
 
-export const wrapStyles = (styles, breakpoint, theme) =>
-  isDefault(breakpoint) ? css(styles) : `${theme.mq[breakpoint]} { ${styles} }`;
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
 
-export const createSpanStyles = (grid, theme, span) => {
+function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
+export const wrapStyles = (theme: Theme, styles, breakpoint: Breakpoint) =>
+  breakpoint === DEFAULT_BREAKPOINT
+    ? css(styles)
+    : css`
+        ${theme.mq[breakpoint]} {
+          ${styles}
+        }
+      `;
+
+export const createSpanStyles = (grid: Grid, theme: Theme, span: number) => {
   if (!grid) {
     return null;
   }
 
   const { cols, breakpoint } = grid;
-  const safeSpan = clamp(MIN_COL_SPAN, cols, span);
+  const safeSpan: number = clamp(MIN_COL_SPAN, cols, span);
 
   const styles = `
     width: ${(MAX_COL_WIDTH / cols) * safeSpan}%;
   `;
 
-  return wrapStyles(styles, breakpoint, theme);
+  return wrapStyles(theme, styles, breakpoint);
 };
 
-export const createSkipStyles = (grid, theme, skip) => {
+export const createSkipStyles = (grid: Grid, theme: Theme, skip: number) => {
   if (!grid) {
     return null;
   }
@@ -62,10 +88,10 @@ export const createSkipStyles = (grid, theme, skip) => {
     position: relative;
   `;
 
-  return wrapStyles(styles, breakpoint, theme);
+  return wrapStyles(theme, styles, breakpoint);
 };
 
-const createBreakpointStyles = curry((theme, current) => {
+const createBreakpointStyles = curry((theme: Theme, current: Grid) => {
   const config = theme.grid[current.breakpoint];
 
   if (!config) {
@@ -77,20 +103,20 @@ const createBreakpointStyles = curry((theme, current) => {
     padding-right: calc(${config.gutter} / 2);
   `;
 
-  return wrapStyles(styles, current.breakpoint, theme);
+  return wrapStyles(theme, styles, current.breakpoint);
 });
 
 /**
  * Return the default styles for each breakpoint provided by the config
  */
-export const getBreakPointStyles = (theme) =>
-  compose(values, mapValues(createBreakpointStyles(theme)))(theme.grid);
+export const getBreakPointStyles = (theme: Theme) =>
+  flow(mapValues(createBreakpointStyles(theme)), values)(theme.grid);
 
 /**
  * Sort the key/value based on the breakpoint priority
  * defined on the grid config.
  */
-export const sortByPriority = curry((grid, iteratee) =>
+export const sortByPriority = curry((grid: Grid, iteratee) =>
   iteratee.sort((a, b) => grid[head(a)].priority - grid[head(b)].priority),
 );
 
@@ -98,18 +124,18 @@ export const sortByPriority = curry((grid, iteratee) =>
  * Map the provided key/value breakpoint into styles based on the grid/theme
  * config.
  */
-export const mapBreakpoint = curry((fn, grid, theme, [key, value]) =>
-  fn(grid[key], theme, value),
+export const mapBreakpoint = curry(
+  (fn, grid: Grid, theme: Theme, [key, value]) => fn(grid[key], theme, value),
 );
 
 /**
  * Compose the breakpoints object into an array of styles.
  */
-const composeBreakpoints = curry((fn, grid, theme, breakpoints) =>
-  compose(
-    map(mapBreakpoint(fn, grid, theme)),
-    sortByPriority(grid),
+const composeBreakpoints = curry((fn, grid: Grid, theme: Theme, breakpoints) =>
+  flow(
     toPairs,
+    sortByPriority(grid),
+    map(mapBreakpoint(fn, grid, theme)),
   )(breakpoints),
 );
 
@@ -118,8 +144,11 @@ const composeBreakpoints = curry((fn, grid, theme, breakpoints) =>
  * returns a single style, otherwise composes the breakpoints into an array of
  * styles
  */
-export const getSpanStyles = ({ grid, ...theme }, span) =>
-  isString(span)
+export const getSpanStyles = (
+  { grid, ...theme }: Theme,
+  span: ResponsiveProp,
+) =>
+  isString(span) || isNumber(span)
     ? createSpanStyles(grid.default, theme, span)
     : composeBreakpoints(createSpanStyles, grid, theme, span);
 
@@ -128,7 +157,10 @@ export const getSpanStyles = ({ grid, ...theme }, span) =>
  * returns a single style, otherwise composes the breakpoints into an array of
  * styles
  */
-export const getSkipStyles = ({ grid, ...theme }, skip) =>
-  isString(skip)
+export const getSkipStyles = (
+  { grid, ...theme }: Theme,
+  skip: ResponsiveProp,
+) =>
+  isString(skip) || isNumber(skip)
     ? createSkipStyles(grid.default, theme, skip)
     : composeBreakpoints(createSkipStyles, grid, theme, skip);
