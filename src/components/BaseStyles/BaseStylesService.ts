@@ -14,32 +14,29 @@
  */
 
 import { css } from '@emotion/core';
+import { values } from 'lodash/fp';
 
 import { StyleProps } from '../../styles/styled';
 import { textMega } from '../../styles/style-helpers';
 
-const FONTS_BASE_URL = 'https://static.sumup.com/fonts/latin-greek-cyrillic';
+const FONTS_BASE_URL =
+  'https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-';
 
 export const createBaseStyles = ({ theme }: StyleProps) => css`
   /**
    * Start downloading custom fonts as soon as possible.
    */
+  ${values(theme.fontWeight).map(
+    (fontWeight) => `
   @font-face {
     font-family: 'aktiv-grotesk';
-    font-weight: 400;
+    font-weight: ${parseInt(fontWeight, 10)};
     font-display: swap;
-    src: url('${FONTS_BASE_URL}/aktiv-grotest-400.woff2') format('woff2'),
-      url('${FONTS_BASE_URL}/aktiv-grotest-400.woff') format('woff'),
-      url('${FONTS_BASE_URL}/aktiv-grotest-400.eot') format('embedded-opentype');
-  }
-  @font-face {
-    font-family: 'aktiv-grotesk';
-    font-weight: 700;
-    font-display: swap;
-    src: url('${FONTS_BASE_URL}/aktiv-grotest-700.woff2') format('woff2'), 
-      url('${FONTS_BASE_URL}/aktiv-grotest-700.woff') format('woff'),
-      url('${FONTS_BASE_URL}/aktiv-grotest-700.eot') format('embedded-opentype');
-  }
+    src: url('${FONTS_BASE_URL}${fontWeight}.woff2') format('woff2'),
+      url('${FONTS_BASE_URL}${fontWeight}.woff') format('woff'),
+      url('${FONTS_BASE_URL}${fontWeight}.eot') format('embedded-opentype');
+  }`,
+  )}
 
   /**
    * reset.css
