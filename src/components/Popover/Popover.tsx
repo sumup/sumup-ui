@@ -13,16 +13,64 @@
  * limitations under the License.
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Manager, Reference, Popper } from 'react-popper';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import React, { Component, KeyboardEvent, ReactNode } from 'react';
+import { Manager, Reference, Popper, PopperProps } from 'react-popper';
+import { css, InterpolationWithTheme, SerializedStyles } from '@emotion/core';
+import { Theme } from '@sumup/design-tokens';
 
+import styled, { StyleProps } from '../../styles/styled';
 import Portal from '../Portal';
-import { positionPropType, alignPropType } from '../../util/shared-prop-types';
 
 import { toPopperPlacement, popperModifiers } from './PopoverService';
+
+type Position = 'top' | 'bottom' | 'left' | 'right';
+type Align = 'start' | 'end' | 'center';
+type ArrowPosition = 'up' | 'down' | 'left' | 'right';
+
+export interface PopoverProps {
+  /**
+   * isOpen controlled prop
+   */
+  isOpen: boolean;
+  /**
+   * function rendering the popover
+   */
+  renderPopover: () => ReactNode;
+  /**
+   * function rendering the reference (button or something clickable)
+   */
+  renderReference: () => ReactNode;
+  /**
+   * placement of the popover relative to the reference
+   */
+  position?: Position;
+  /**
+   * alignment of the popover relative to the reference
+   */
+  align?: Align;
+  /**
+   * A callback that is called when the popover should be closed when reference is clicked in an open state
+   */
+  onReferenceClickClose: () => void;
+  /**
+   * A callback that is called on click outside the popover wrapper or the reference
+   */
+  onOutsideClickClose: (
+    target: MouseEvent['target'] | KeyboardEvent['target'],
+  ) => void;
+  /**
+   * A custom z-index for the popover
+   */
+  zIndex?: number;
+  usePortal: boolean;
+  modifiers?: PopperProps['modifiers'];
+  arrowRenderer?: (
+    styles: SerializedStyles,
+    position: ArrowPosition,
+  ) => ReactNode;
+  referenceWrapperStyles?: InterpolationWithTheme<Theme>;
+  referenceElement?: ReactNode;
+}
 
 const ReferenceWrapper = styled('div')`
   label: popover__button-wrapper;
@@ -35,7 +83,7 @@ const ReferenceWrapper = styled('div')`
   ${({ referenceWrapperStyles, ...rest }) => referenceWrapperStyles(rest)};
 `;
 
-const basePopoverWrapperStyles = ({ theme }) => css`
+const basePopoverWrapperStyles = ({ theme }: StyleProps) => css`
   label: popover;
   z-index: ${theme.zIndex.popover};
 `;
@@ -86,61 +134,19 @@ const oppositeDirection = {
   bottom: 'up',
 };
 
-const arrowStyles = {
+const arrowStyles: { [key in ArrowPosition]: SerializedStyles } = {
   up: arrowUpStyles,
   down: arrowDownStyles,
   left: arrowLeftStyles,
   right: arrowRightStyles,
 };
 
-class Popover extends Component {
-  static propTypes = {
-    /**
-     * isOpen controlled prop
-     */
-    isOpen: PropTypes.bool,
-    /**
-     * function rendering the popover
-     */
-    renderPopover: PropTypes.func.isRequired,
-    /**
-     * function rendering the reference (button or something clickable)
-     */
-    renderReference: PropTypes.func,
-    /**
-     * placement of the popover relative to the reference
-     */
-    position: positionPropType,
-    /**
-     * alignment of the popover relative to the reference
-     */
-    align: alignPropType,
-    /**
-     * A callback that is called when the popover should be closed when reference is clicked in an open state
-     */
-    onReferenceClickClose: PropTypes.func.isRequired,
-    /**
-     * A callback that is called on click outside the popover wrapper or the reference
-     */
-    onOutsideClickClose: PropTypes.func.isRequired,
-    /**
-     * A custom z-index for the popover
-     */
-    zIndex: PropTypes.number,
-    onClose: PropTypes.func,
-    usePortal: PropTypes.bool,
-    modifiers: PropTypes.shape(),
-    arrowRenderer: PropTypes.func,
-    referenceWrapperStyles: PropTypes.func,
-    referenceElement: PropTypes.element,
-  };
-
+class Popover extends Component<PopoverProps> {
   static defaultProps = {
     isOpen: false,
     position: 'bottom',
     align: 'start',
     zIndex: null,
-    onClose: () => {},
     usePortal: false,
     modifiers: {},
     arrowRenderer: () => null,
