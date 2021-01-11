@@ -13,7 +13,13 @@
  * limitations under the License.
  */
 
-import React, { FC, MouseEvent, KeyboardEvent, ReactNode } from 'react';
+import React, {
+  FC,
+  MouseEvent,
+  KeyboardEvent,
+  ReactNode,
+  Suspense,
+} from 'react';
 import ReactModal, { Props } from 'react-modal';
 import { ClassNames } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
@@ -24,6 +30,7 @@ import noScroll from 'no-scroll';
 import IS_IOS from '../../util/ios';
 import { isFunction } from '../../util/type-check';
 import useClickHandler from '../../hooks/use-click-handler';
+import { Fallback } from '../Suspense';
 
 type OnClose = (event: MouseEvent | KeyboardEvent) => void;
 
@@ -42,6 +49,10 @@ export interface ModalProps extends Partial<Props> {
    * React Modal's accessibility string.
    */
   contentLabel?: string;
+  /**
+   * Label for the loading spinner while content is loading.
+   */
+  loadingLabel?: string;
   /**
    * The element that should be used as root for the
    * React portal used to display the modal. See
@@ -73,6 +84,7 @@ export const Modal: FC<ModalProps> = ({
   children,
   onClose,
   contentLabel = 'Modal',
+  loadingLabel = 'Loading',
   appElement = DEFAULT_APP_ELEMENT,
   isOpen = true,
   tracking = {},
@@ -191,11 +203,13 @@ export const Modal: FC<ModalProps> = ({
         };
         return (
           <ReactModal {...reactModalProps}>
-            {isFunction(children)
-              ? children({
-                  onClose: handleClose,
-                })
-              : children}
+            <Suspense fallback={<Fallback label={loadingLabel} />}>
+              {isFunction(children)
+                ? children({
+                    onClose: handleClose,
+                  })
+                : children}
+            </Suspense>
           </ReactModal>
         );
       }}
