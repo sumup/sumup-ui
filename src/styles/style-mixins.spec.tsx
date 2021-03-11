@@ -19,7 +19,7 @@ import { light, Theme } from '@sumup/design-tokens';
 
 import { create } from '../util/test-utils';
 
-import * as StyleHelpers from './style-helpers';
+import * as StyleHelpers from './style-mixins';
 import {
   cx,
   shadowSingle,
@@ -43,7 +43,7 @@ import {
   clearfix,
   hideScrollbar,
   inputOutline,
-} from './style-helpers';
+} from './style-mixins';
 
 describe('Style helpers', () => {
   const red = (theme: Theme) => css`
